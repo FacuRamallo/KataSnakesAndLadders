@@ -3,7 +3,7 @@ package com.snakesladers;
 import java.util.ArrayList;
 
 public class Game {
-    private Integer[][] board = {{1,2,3,4,5,6,7,8,9,10},{1,2,3,4,5,6,7,8,9,10}};
+    //private Integer[][] board = {{1,2,3,4,5,6,7,8,9,10},{1,2,3,4,5,6,7,8,9,10}};
     private Integer players;
     private ArrayList<Player> playersArray = new ArrayList<Player>();
     private ArrayList<Ladder> laddersArray =new ArrayList<Ladder>();

@@ -1,14 +1,9 @@
 package com.snakesladers;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.internal.stubbing.answers.ReturnsElementsOf;
-
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 
@@ -44,18 +39,18 @@ class GameTests {
 	@Test
 	void youFollowTheNumbersUpTheBoardInOrder1To100(){
 		mockDices = mock(Dices.class);
-		Game game = new Game(2,mockDices);
+		Game game = new Game(1,mockDices);
 		ArrayList<Player> players = game.getPlayersArray();
 
 		when(mockDices.sumOf()).thenReturn(4);
-		//doReturn(2).when(mockDices).sumOf();
 
-		int newPosition = 4;
+		int expectedPosition1 = 4;
 		assertEquals(0,players.get(0).getPosition());
-		//players.get(0).setNewPosition(mockDices.sumOf());
 		game.play();
-		assertEquals(newPosition,players.get(0).getPosition());
-
+		assertEquals(expectedPosition1,players.get(0).getPosition());
+		game.play();
+		int expectedPosition2 = 8;
+		assertEquals(expectedPosition2,players.get(0).getPosition());
 	}
 
 	@Test
