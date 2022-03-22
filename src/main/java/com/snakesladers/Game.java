@@ -6,8 +6,14 @@ public class Game {
     private Integer[][] board = {{1,2,3,4,5,6,7,8,9,10},{1,2,3,4,5,6,7,8,9,10}};
     private Integer players;
     private ArrayList<Player> playersArray = new ArrayList<Player>();
+    private ArrayList<Ladder> laddersArray =new ArrayList<Ladder>();
+    private Ladder ladderCurrPlayerIsOn;
     private Integer turn = 0;
     private Dices dices;
+
+    public void setLadderCurrPlayerIsOn(Ladder ladderCurrPlayerIsOn) {
+        this.ladderCurrPlayerIsOn = ladderCurrPlayerIsOn;
+    }
 
     public Game(Integer players) {
         this.players = players;
@@ -19,13 +25,6 @@ public class Game {
         this.players = players;
         this.dices = dices;
         generatePlayers();
-    }
-
-    public void generatePlayers(){
-        for (Integer i = 0; i < this.players ; i++) {
-            String pref = "player";
-            playersArray.add(i,new Player(i));
-        }
     }
 
     public ArrayList<Player> getPlayersArray() {
@@ -40,6 +39,17 @@ public class Game {
         this.turn = turn;
     }
 
+    public void generatePlayers(){
+        for (Integer i = 0; i < this.players ; i++) {
+            String pref = "player";
+            playersArray.add(i,new Player(i));
+        }
+    }
+
+    public void  generateLadder(int initialPos, int finalPos){
+        laddersArray.add(new Ladder(initialPos,finalPos));
+    }
+
     public void playerIterator(){
         if (turn == (playersArray.size() - 1)) {
             setTurn(0);
@@ -48,12 +58,29 @@ public class Game {
         }
     }
 
-    public int play(){
+    public Boolean isPlayerOnALadder(int currentPlayerNewPosition){
+        for (Ladder ladder : laddersArray) {
+                if(ladder.getInitialPosition()== currentPlayerNewPosition){
+                    setLadderCurrPlayerIsOn(ladder);
+                    return true;}
+        }
+        return false;
+    }
+
+    public void play(){
         dices.throwDices();
         int sumOfDices = dices.sumOf();
-        if(dices.equalNumbers()){return sumOfDices;}
-        playerIterator();
-        return sumOfDices;
+        Player currentPlayer = playersArray.get(getTurn());
+        currentPlayer.setNewPosition(sumOfDices);
+        int currentPlayerNewPosition = currentPlayer.getPosition();
+        if(isPlayerOnALadder(currentPlayerNewPosition)){
+            currentPlayer.setNewPosition(ladderCurrPlayerIsOn.getPositionsToAdvance());
+            setLadderCurrPlayerIsOn(null);
+        }
+        if(!dices.equalNumbers()){playerIterator();}
+
     }
+
+
 
 }

@@ -2,18 +2,19 @@ package com.snakesladers;
 
 public class Player {
     private Integer id;
-    private int [][] position = {{1},{1}};
+    private int position = 0;
 
     public Player(Integer id) {
         this.id = id;
     }
 
-    public int[][] getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(int[][] position) {
-        this.position = position;
+    public void setNewPosition(int dicesSum) {
+
+        this.position += dicesSum;
     }
 
 }
