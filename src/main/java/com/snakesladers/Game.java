@@ -1,18 +1,27 @@
 package com.snakesladers;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
+@Component
 public class Game {
     //private Integer[][] board = {{1,2,3,4,5,6,7,8,9,10},{1,2,3,4,5,6,7,8,9,10}};
     private Integer players;
     private ArrayList<Player> playersArray = new ArrayList<Player>();
     private ArrayList<Ladder> laddersArray =new ArrayList<Ladder>();
+    private ArrayList<Snake> snakeArray = new ArrayList<>();
     private Ladder ladderCurrPlayerIsOn;
+    private Snake snakeCurrPlayerIsOn;
     private Integer turn = 0;
     private Dices dices;
 
     public void setLadderCurrPlayerIsOn(Ladder ladderCurrPlayerIsOn) {
         this.ladderCurrPlayerIsOn = ladderCurrPlayerIsOn;
+    }
+
+    public void setSnakeCurrPlayerIsOn(Snake snakeCurrPlayerIsOn) {
+        this.snakeCurrPlayerIsOn = snakeCurrPlayerIsOn;
     }
 
     public Game(Integer players) {
@@ -50,6 +59,8 @@ public class Game {
         laddersArray.add(new Ladder(initialPos,finalPos));
     }
 
+    public void generateSnake(int initialPos, int finalPos) {snakeArray.add(new Snake(initialPos,finalPos));}
+
     public void playerIterator(){
         if (turn == (playersArray.size() - 1)) {
             setTurn(0);
@@ -62,10 +73,23 @@ public class Game {
         for (Ladder ladder : laddersArray) {
                 if(ladder.getInitialPosition()== currentPlayerNewPosition){
                     setLadderCurrPlayerIsOn(ladder);
-                    return true;}
+                    return true;
+                }
         }
         return false;
     }
+
+    public Boolean isPlayerOnASnake(int currentPlayerNewPosition){
+        for (Snake snake: snakeArray) {
+            if(snake.getFinalPosition()== currentPlayerNewPosition){
+                setSnakeCurrPlayerIsOn(snake);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     public void play(){
         dices.throwDices();
@@ -77,6 +101,11 @@ public class Game {
             currentPlayer.setNewPosition(ladderCurrPlayerIsOn.getPositionsToAdvance());
             setLadderCurrPlayerIsOn(null);
         }
+        if(isPlayerOnASnake(currentPlayerNewPosition)){
+            currentPlayer.setNewPosition(snakeCurrPlayerIsOn.getPositionsToGoBack());
+            setLadderCurrPlayerIsOn(null);
+        }
+
         if(!dices.equalNumbers()){playerIterator();}
 
     }

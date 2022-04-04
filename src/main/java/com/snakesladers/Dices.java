@@ -1,8 +1,12 @@
 package com.snakesladers;
 
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Component
 public class Dices {
     private int[] nums = new int[2];
 

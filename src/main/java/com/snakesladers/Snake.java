@@ -1,14 +1,11 @@
 package com.snakesladers;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class Ladder {
+public class Snake {
     private int initialPosition;
     private int finalPosition;
-    private int positionsToAdvance;
+    private int positionsToGoBack;
 
-    public Ladder(int initialPosition, int finalPosition) {
+    public Snake(int initialPosition, int finalPosition) {
         this.initialPosition = initialPosition;
         this.finalPosition = finalPosition;
     }
@@ -21,7 +18,7 @@ public class Ladder {
         return finalPosition;
     }
 
-    public int getPositionsToAdvance(){
-        return finalPosition-initialPosition;
+    public int getPositionsToGoBack() {
+        return initialPosition-finalPosition;
     }
 }

@@ -80,6 +80,19 @@ class GameTests {
 		assertEquals(10,players.get(0).getPosition());
 	}
 
+	@Test
+	void ifAPlayerLandsInASnakeStartItMoveDownwardsToPositionAtTheStartOfSnake(){
+		mockDices = mock(Dices.class);
+		Game game = new Game(2,mockDices);
+		ArrayList<Player> players = game.getPlayersArray();
+		game.generateSnake(2,10);
+		when(mockDices.sumOf()).thenReturn(10);
+
+		assertEquals(0,players.get(0).getPosition());
+		game.play();
+		assertEquals(2,players.get(0).getPosition());
+	}
+
 
 
 
