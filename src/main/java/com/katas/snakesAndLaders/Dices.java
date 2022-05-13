@@ -1,4 +1,4 @@
-package com.snakesladers;
+package com.katas.snakesAndLaders;
 
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,6 @@ public class Dices {
     }
 
     public Boolean equalNumbers(){
-        if(nums[0]==nums[1]){return true;}
-        return false;
+        return nums[0] == nums[1];
     }
 }

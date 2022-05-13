@@ -1,14 +1,14 @@
-package com.snakesladers;
+package com.katas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SnakesladersApplication {
+public class KatasApp {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(SnakesladersApplication.class, args);
+		SpringApplication.run(KatasApp.class, args);
 
 
 	}

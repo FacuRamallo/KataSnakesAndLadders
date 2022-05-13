@@ -1,4 +1,4 @@
-package com.snakesladers;
+package com.katas.snakesAndLaders;
 
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,12 @@ public class Player {
         return position;
     }
 
-    public void setNewPosition(int dicesSum) {
+    public void setNewPosition(int squareNumber) {
 
-        this.position += dicesSum;
+        this.position = squareNumber;
     }
 
+    public Integer getId() {
+        return id;
+    }
 }
